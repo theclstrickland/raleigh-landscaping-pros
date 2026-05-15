@@ -1,0 +1,16 @@
+---
+import ServicePage from '../../layouts/ServicePage.astro';
+import { site } from '../../data/site';
+
+const svc = site.services.find(s => s.slug === 'lawn-care')!;
+---
+
+<ServicePage
+  name={svc.name}
+  slug={svc.slug}
+  headline={svc.headline}
+  intro={svc.intro}
+  body={svc.body}
+  benefits={svc.benefits}
+  priceRange={svc.priceRange}
+/>

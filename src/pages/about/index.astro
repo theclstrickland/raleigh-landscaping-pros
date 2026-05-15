@@ -1,0 +1,176 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+---
+
+<Base title={`About Us | ${site.name}`} description={`Learn about ${site.name} — locally owned landscaping company serving ${site.city}, ${site.state} and the Triangle. Licensed, insured, and committed to quality.`}>
+  <section class="about-hero">
+    <div class="container">
+      <p class="section-label">About Us</p>
+      <h1>Your Local Landscaping Team</h1>
+      <p class="about-hero-sub">
+        We're a locally owned landscaping company rooted in the Raleigh-Durham area. We treat every
+        property like our own — because our reputation depends on it.
+      </p>
+    </div>
+  </section>
+
+  <section class="about-content">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-main">
+          <h2>Built on Quality Work & Honest Service</h2>
+          <p>
+            We started this company because we saw too many homeowners getting inconsistent service,
+            surprise charges, and crews that never showed up on time. We believe landscaping should be
+            simple: clear pricing, reliable scheduling, and work that speaks for itself.
+          </p>
+          <p>
+            Every crew member on our team is trained, insured, and equipped with commercial-grade
+            equipment. We don't cut corners — we cut clean edges, install proper drainage, and use
+            the right plants for Raleigh's climate. Whether it's weekly mowing or a full landscape
+            renovation, we bring the same attention to detail.
+          </p>
+          <p>
+            We serve all of Wake County and parts of Durham and Johnston counties. From downtown
+            Raleigh to the growing communities of Holly Springs, Apex, and Wake Forest — if you're
+            in the Triangle, we've got you covered.
+          </p>
+
+          <h3>What Sets Us Apart</h3>
+          <div class="about-values">
+            {site.whyUs.map(item => (
+              <div class="about-value">
+                <span class="about-value-icon">{item.icon}</span>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <aside class="about-sidebar">
+          <div class="sidebar-cta">
+            <h3>Ready to Get Started?</h3>
+            <p>Call us or request a free estimate online.</p>
+            <a href={`tel:${site.phoneTel}`} class="btn btn-primary" style="width:100%;justify-content:center;">
+              {site.phone}
+            </a>
+            <a href="/contact/" class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:8px;">
+              Contact Us
+            </a>
+          </div>
+
+          <div class="sidebar-quick-facts">
+            <h4>Quick Facts</h4>
+            <ul>
+              <li><strong>Based in:</strong> Raleigh, NC</li>
+              <li><strong>Service Area:</strong> Wake, Durham & Johnston Counties</li>
+              <li><strong>Hours:</strong> {site.hours}</li>
+              <li><strong>Licensed & Insured:</strong> Yes</li>
+              <li><strong>Free Estimates:</strong> Yes</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .about-hero {
+    background: var(--bg-dark);
+    padding: 72px 0 80px;
+    position: relative;
+  }
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 40% 60%, rgba(45,106,48,0.12), transparent 60%);
+  }
+  .about-hero .container { position: relative; }
+  .about-hero .section-label { color: var(--warm); }
+  .about-hero h1 {
+    font-size: clamp(32px, 4.5vw, 48px);
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .about-hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .about-content { padding: 72px 0 96px; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+  .about-main h2 { font-size: 28px; margin-bottom: 16px; }
+  .about-main > p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: var(--text);
+  }
+  .about-main h3 {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 700;
+    margin: 32px 0 20px;
+  }
+  .about-values { display: flex; flex-direction: column; gap: 16px; }
+  .about-value {
+    display: flex;
+    gap: 14px;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .about-value-icon { font-size: 24px; flex-shrink: 0; }
+  .about-value strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .about-value p { font-size: 14px; color: var(--text-light); line-height: 1.6; margin: 0; }
+
+  .sidebar-cta {
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .sidebar-cta h3 { font-family: var(--font-body); font-size: 18px; margin-bottom: 8px; }
+  .sidebar-cta p { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+  .sidebar-quick-facts {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+  .sidebar-quick-facts h4 {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+  }
+  .sidebar-quick-facts ul { list-style: none; }
+  .sidebar-quick-facts li {
+    padding: 8px 0;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-quick-facts li:last-child { border-bottom: none; }
+
+  @media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>

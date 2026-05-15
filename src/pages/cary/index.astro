@@ -1,0 +1,13 @@
+---
+import LocationPage from '../../layouts/LocationPage.astro';
+import { site } from '../../data/site';
+
+const loc = site.locations.find(l => l.slug === 'cary')!;
+---
+
+<LocationPage
+  name={loc.name}
+  slug={loc.slug}
+  county={loc.county}
+  description={loc.description}
+/>

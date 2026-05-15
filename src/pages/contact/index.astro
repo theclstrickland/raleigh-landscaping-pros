@@ -1,0 +1,257 @@
+---
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+---
+
+<Base title={`Contact Us | ${site.name}`} description={`Get a free landscaping estimate from ${site.name}. Call ${site.phone} or fill out our contact form. Serving ${site.city}, ${site.state} and surrounding areas.`}>
+  <section class="contact-hero">
+    <div class="container">
+      <p class="section-label">Contact Us</p>
+      <h1>Get Your Free Estimate</h1>
+      <p class="contact-hero-sub">
+        Ready to get started? Call us directly or fill out the form below and
+        we'll get back to you within 1 business hour.
+      </p>
+    </div>
+  </section>
+
+  <section class="quick-contact">
+    <div class="container">
+      <div class="quick-grid">
+        <a href={`tel:${site.phoneTel}`} class="quick-card">
+          <span class="quick-icon">📞</span>
+          <span class="quick-label">Call Us Now</span>
+          <span class="quick-value">{site.phone}</span>
+        </a>
+        <div class="quick-card">
+          <span class="quick-icon">⏰</span>
+          <span class="quick-label">Business Hours</span>
+          <span class="quick-value">{site.hours}</span>
+        </div>
+        <div class="quick-card">
+          <span class="quick-icon">📍</span>
+          <span class="quick-label">Service Area</span>
+          <span class="quick-value">{site.city}, {site.state} & Surrounding</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-main">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="form-wrap">
+          <h2>Request a Free Estimate</h2>
+          <p>Fill out the form below and we'll contact you within 1 business hour to schedule your free on-site estimate.</p>
+          <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" required placeholder="John Smith" />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="(919) 555-0100" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="service">Service Needed</label>
+              <select id="service" name="service">
+                <option value="">Select a service...</option>
+                {site.services.map(s => (
+                  <option value={s.name}>{s.name}</option>
+                ))}
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="address">Property Address</label>
+              <input type="text" id="address" name="address" placeholder="123 Main St, Raleigh, NC" />
+            </div>
+            <div class="form-group">
+              <label for="message">Tell Us About Your Project</label>
+              <textarea id="message" name="message" rows="4" placeholder="Describe what you need..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+              Submit Request
+            </button>
+          </form>
+        </div>
+
+        <aside class="contact-sidebar">
+          <div class="sidebar-phone">
+            <h3>Prefer to Call?</h3>
+            <p>Talk to a real person. No automated phone trees.</p>
+            <a href={`tel:${site.phoneTel}`} class="btn btn-primary" style="width:100%;justify-content:center;">
+              📞 {site.phone}
+            </a>
+          </div>
+
+          <div class="sidebar-areas-served">
+            <h4>Areas We Serve</h4>
+            <div class="area-pills">
+              <span class="area-pill area-primary">Raleigh</span>
+              {site.locations.map(loc => (
+                <a href={`/${loc.slug}/`} class="area-pill">{loc.name}</a>
+              ))}
+            </div>
+          </div>
+
+          <div class="sidebar-services-list">
+            <h4>Our Services</h4>
+            <ul>
+              {site.services.map(s => (
+                <li><a href={`/${s.slug}/`}>{s.icon} {s.name}</a></li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-hero {
+    background: var(--bg-dark);
+    padding: 72px 0 80px;
+    position: relative;
+  }
+  .contact-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(45,106,48,0.12), transparent 60%);
+  }
+  .contact-hero .container { position: relative; }
+  .contact-hero .section-label { color: var(--warm); }
+  .contact-hero h1 {
+    font-size: clamp(32px, 4.5vw, 48px);
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .contact-hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .quick-contact { padding: 48px 0; background: var(--bg-alt); }
+  .quick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .quick-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+  }
+  .quick-card:hover { border-color: var(--accent); }
+  .quick-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+  .quick-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .quick-value { font-weight: 700; font-size: 16px; }
+
+  .contact-main { padding: 64px 0 96px; }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+  .form-wrap h2 { font-size: 28px; margin-bottom: 8px; }
+  .form-wrap > p { font-size: 15px; color: var(--text-light); margin-bottom: 28px; }
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--heading);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: var(--font-body);
+    font-size: 15px;
+    background: var(--bg-card);
+    color: var(--text);
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .sidebar-phone {
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .sidebar-phone h3 { font-family: var(--font-body); font-size: 18px; margin-bottom: 8px; }
+  .sidebar-phone p { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+  .sidebar-areas-served, .sidebar-services-list {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .sidebar-areas-served h4, .sidebar-services-list h4 {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+  }
+  .area-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .area-pill {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--text);
+    background: var(--bg);
+    transition: all 0.2s;
+  }
+  .area-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .area-primary { background: var(--accent); color: var(--white); border-color: var(--accent); }
+  .sidebar-services-list ul { list-style: none; }
+  .sidebar-services-list li { padding: 6px 0; font-size: 14px; }
+  .sidebar-services-list a { color: var(--accent); text-decoration: none; }
+  .sidebar-services-list a:hover { text-decoration: underline; }
+
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .quick-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>

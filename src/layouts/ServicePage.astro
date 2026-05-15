@@ -1,0 +1,253 @@
+---
+import Base from './Base.astro';
+import { site } from '../data/site';
+
+interface Props {
+  name: string;
+  slug: string;
+  headline: string;
+  intro: string;
+  body: string;
+  benefits: string[];
+  priceRange: string;
+}
+
+const { name, slug, headline, intro, body, benefits, priceRange } = Astro.props;
+const otherServices = site.services.filter(s => s.slug !== slug);
+---
+
+<Base
+  title={`${name} in ${site.city}, ${site.state} | ${site.name}`}
+  description={`Professional ${name.toLowerCase()} in ${site.city}, ${site.state}. ${intro.slice(0, 120)}`}
+>
+  <section class="sp-hero">
+    <div class="container">
+      <p class="section-label">{site.name}</p>
+      <h1>{headline}</h1>
+      <p class="sp-hero-sub">{intro}</p>
+      <div class="sp-hero-actions">
+        <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 Call {site.phone}</a>
+        <a href="/contact/" class="btn btn-secondary">Get Free Estimate</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-content">
+    <div class="container">
+      <div class="sp-grid">
+        <div class="sp-main">
+          <h2>About Our {name} Service</h2>
+          <p>{body}</p>
+
+          <h3>What's Included</h3>
+          <ul class="sp-benefits">
+            {benefits.map(b => (
+              <li><span class="benefit-check">✓</span> {b}</li>
+            ))}
+          </ul>
+
+          <div class="sp-price-box">
+            <span class="sp-price-label">Typical Price Range</span>
+            <span class="sp-price-value">{priceRange}</span>
+            <span class="sp-price-note">Final price depends on property size, condition, and scope.</span>
+          </div>
+        </div>
+
+        <aside class="sp-sidebar">
+          <div class="sidebar-cta">
+            <h3>Get a Free Estimate</h3>
+            <p>Call us or request an estimate online. No obligation.</p>
+            <a href={`tel:${site.phoneTel}`} class="btn btn-primary" style="width:100%;justify-content:center;">
+              {site.phone}
+            </a>
+            <a href="/contact/" class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:8px;">
+              Contact Form
+            </a>
+          </div>
+
+          <div class="sidebar-services">
+            <h4>Other Services</h4>
+            <ul>
+              {otherServices.map(s => (
+                <li><a href={`/${s.slug}/`}>{s.icon} {s.name}</a></li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="sidebar-areas">
+            <h4>Areas We Serve</h4>
+            <ul>
+              <li><strong>Raleigh</strong></li>
+              {site.locations.map(loc => (
+                <li><a href={`/${loc.slug}/`}>{loc.name}</a></li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sp-cta-bottom">
+    <div class="container">
+      <h2>Need {name} in {site.city}?</h2>
+      <p>Get a free estimate today. No pressure, no commitment.</p>
+      <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 Call {site.phone}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sp-hero {
+    background: var(--bg-dark);
+    padding: 72px 0 80px;
+    position: relative;
+  }
+  .sp-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 80%, rgba(45, 106, 48, 0.12), transparent 60%);
+  }
+  .sp-hero .container { position: relative; }
+  .sp-hero .section-label { color: var(--warm); }
+  .sp-hero h1 {
+    font-size: clamp(32px, 4.5vw, 48px);
+    color: var(--white);
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+  .sp-hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.7);
+    max-width: 600px;
+    margin-bottom: 28px;
+    line-height: 1.7;
+  }
+  .sp-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .sp-hero .btn-secondary {
+    border-color: rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+
+  .sp-content { padding: 72px 0 96px; }
+  .sp-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: start;
+  }
+  .sp-main h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .sp-main > p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+  .sp-main h3 {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .sp-benefits {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .sp-benefits li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .benefit-check { color: var(--accent); font-weight: 700; font-size: 16px; }
+  .sp-price-box {
+    background: var(--accent-light);
+    border: 1px solid rgba(45, 106, 48, 0.15);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+  .sp-price-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-bottom: 4px;
+  }
+  .sp-price-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-display);
+    margin-bottom: 8px;
+  }
+  .sp-price-note { font-size: 13px; color: var(--text-light); }
+
+  /* Sidebar */
+  .sidebar-cta {
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  .sidebar-cta h3 {
+    font-family: var(--font-body);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .sidebar-cta p { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+  .sidebar-services, .sidebar-areas {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .sidebar-services h4, .sidebar-areas h4 {
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    color: var(--text-light);
+  }
+  .sidebar-services ul, .sidebar-areas ul { list-style: none; }
+  .sidebar-services li, .sidebar-areas li {
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .sidebar-services a, .sidebar-areas a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .sidebar-services a:hover, .sidebar-areas a:hover { text-decoration: underline; }
+
+  .sp-cta-bottom {
+    background: var(--bg-dark);
+    padding: 64px 0;
+    text-align: center;
+  }
+  .sp-cta-bottom h2 {
+    color: var(--white);
+    font-size: clamp(24px, 3.5vw, 36px);
+    margin-bottom: 12px;
+  }
+  .sp-cta-bottom p {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 900px) {
+    .sp-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,0 +1,444 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title={`${site.name} | ${site.tagline} in ${site.city}, ${site.state}`} description={site.description}>
+
+  <!-- ── HERO ─────────────────────────────────────── -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="section-label">Raleigh's Trusted Landscaping Team</p>
+          <h1>Professional Landscaping for the Triangle</h1>
+          <p class="hero-sub">
+            From weekly lawn care to full landscape transformations — we keep Raleigh properties
+            looking their best. Licensed, insured, and locally owned.
+          </p>
+          <div class="hero-actions">
+            <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 Call {site.phone}</a>
+            <a href="/contact/" class="btn btn-secondary">Get Free Estimate</a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-item">
+              <span class="trust-check">✓</span> Licensed & Insured
+            </div>
+            <div class="trust-item">
+              <span class="trust-check">✓</span> Free Estimates
+            </div>
+            <div class="trust-item">
+              <span class="trust-check">✓</span> Locally Owned
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="hero-card">
+            <div class="hero-card-icon">🌿</div>
+            <div class="hero-card-text">
+              <strong>Serving the Triangle</strong>
+              <span>Raleigh · Cary · Apex · Wake Forest & more</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ─────────────────────────────────── -->
+  <section class="services" id="services">
+    <div class="container">
+      <p class="section-label">What We Do</p>
+      <h2>Our Landscaping Services</h2>
+      <p class="section-intro">Everything your property needs — from routine maintenance to major installations.</p>
+      <div class="services-grid">
+        {site.services.map(s => (
+          <a href={`/${s.slug}/`} class="service-card">
+            <span class="service-icon">{s.icon}</span>
+            <h3>{s.name}</h3>
+            <p>{s.short}</p>
+            <span class="service-link">Learn more →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY US ───────────────────────────────────── -->
+  <section class="why" id="why">
+    <div class="container">
+      <p class="section-label">Why Choose Us</p>
+      <h2>The Raleigh Landscaping Difference</h2>
+      <div class="why-grid">
+        {site.whyUs.map(item => (
+          <div class="why-card">
+            <span class="why-icon">{item.icon}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ──────────────────────────────────── -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <p class="section-label">Transparent Pricing</p>
+      <h2>What Landscaping Costs in Raleigh</h2>
+      <p class="section-intro">Every property is different, but here are typical ranges for our most popular services.</p>
+      <div class="pricing-table-wrap">
+        <table class="pricing-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Typical Price Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            {site.pricing.map(row => (
+              <tr>
+                <td>{row.service}</td>
+                <td class="price-cell">{row.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="pricing-note">
+        Prices vary based on property size, condition, and scope. Call <a href={`tel:${site.phoneTel}`}>{site.phone}</a> for a free, detailed estimate.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── LOCATIONS ────────────────────────────────── -->
+  <section class="locations" id="locations">
+    <div class="container">
+      <p class="section-label">Areas We Serve</p>
+      <h2>Landscaping Across the Triangle</h2>
+      <div class="locations-grid">
+        <a href="/#services" class="location-card location-primary">
+          <span class="location-name">Raleigh</span>
+          <span class="location-county">Wake County</span>
+        </a>
+        {site.locations.map(loc => (
+          <a href={`/${loc.slug}/`} class="location-card">
+            <span class="location-name">{loc.name}</span>
+            <span class="location-county">{loc.county} County</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────── -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <p class="section-label">Common Questions</p>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        {site.faqs.map(item => (
+          <details class="faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Schema: FAQ ──────────────────────────────── -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": site.faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  })} />
+
+  <!-- ── FINAL CTA ────────────────────────────────── -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Ready to Transform Your Yard?</h2>
+      <p>Get a free estimate from Raleigh's trusted landscaping team. No pressure, no commitment.</p>
+      <div class="final-actions">
+        <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 Call {site.phone}</a>
+        <a href="/contact/" class="btn btn-secondary">Request Estimate Online</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ── Hero ── */
+  .hero {
+    background: var(--bg-dark);
+    padding: 80px 0 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 20%, rgba(45, 106, 48, 0.15), transparent 60%);
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 64px;
+    align-items: center;
+    position: relative;
+  }
+  .hero .section-label { color: var(--warm); }
+  .hero h1 {
+    font-size: clamp(36px, 5vw, 56px);
+    color: var(--white);
+    margin-bottom: 20px;
+    line-height: 1.1;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 32px;
+    max-width: 520px;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+  .hero-trust { display: flex; gap: 24px; flex-wrap: wrap; }
+  .trust-item {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trust-check { color: var(--warm); font-weight: 700; }
+  .hero-visual { display: flex; justify-content: center; }
+  .hero-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(8px);
+  }
+  .hero-card-icon { font-size: 48px; }
+  .hero-card-text strong {
+    display: block;
+    color: var(--white);
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .hero-card-text span {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+  }
+
+  /* ── Services ── */
+  .services { padding: 96px 0; }
+  .services h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 8px; }
+  .section-intro {
+    color: var(--text-light);
+    font-size: 17px;
+    margin-bottom: 48px;
+    max-width: 560px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+  }
+  .service-icon { font-size: 36px; display: block; margin-bottom: 16px; }
+  .service-card h3 {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .service-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; margin-bottom: 16px; }
+  .service-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* ── Why ── */
+  .why { padding: 96px 0; background: var(--bg-alt); }
+  .why h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 48px; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .why-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+  }
+  .why-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+  .why-card h3 {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .why-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+  /* ── Pricing ── */
+  .pricing { padding: 96px 0; }
+  .pricing h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 8px; }
+  .pricing-table-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .pricing-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .pricing-table th {
+    text-align: left;
+    padding: 16px 24px;
+    background: var(--bg-dark);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .pricing-table td {
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-table tr:last-child td { border-bottom: none; }
+  .price-cell { font-weight: 600; color: var(--accent); }
+  .pricing-note {
+    font-size: 14px;
+    color: var(--text-light);
+  }
+  .pricing-note a { color: var(--accent); font-weight: 600; }
+
+  /* ── Locations ── */
+  .locations { padding: 96px 0; background: var(--bg-alt); }
+  .locations h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 48px; }
+  .locations-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .location-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .location-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .location-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .location-primary .location-name { color: var(--white); }
+  .location-primary .location-county { color: rgba(255,255,255,0.7); }
+  .location-name { font-weight: 700; font-size: 16px; }
+  .location-county { font-size: 13px; color: var(--text-light); }
+
+  /* ── FAQ ── */
+  .faq { padding: 96px 0; }
+  .faq h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 48px; }
+  .faq-list { max-width: 720px; }
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    background: var(--bg-card);
+    overflow: hidden;
+  }
+  .faq-item summary {
+    padding: 20px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .faq-item summary::after { content: '+'; font-size: 20px; color: var(--accent); }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-item p {
+    padding: 0 24px 20px;
+    font-size: 15px;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ── Final CTA ── */
+  .final-cta {
+    background: var(--bg-dark);
+    padding: 80px 0;
+    text-align: center;
+  }
+  .final-cta h2 {
+    color: var(--white);
+    font-size: clamp(28px, 4vw, 40px);
+    margin-bottom: 16px;
+  }
+  .final-cta p {
+    color: rgba(255,255,255,0.7);
+    font-size: 18px;
+    margin-bottom: 32px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .final-cta .btn-secondary {
+    border-color: rgba(255,255,255,0.3);
+    color: var(--white);
+  }
+  .final-cta .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { display: none; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .locations-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .locations-grid { grid-template-columns: 1fr; }
+    .hero { padding: 56px 0 72px; }
+  }
+</style>

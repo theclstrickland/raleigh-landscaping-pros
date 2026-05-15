@@ -1,0 +1,133 @@
+---
+import { site } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:site_name" content={site.name} />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+
+  <!-- Schema: LocalBusiness -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LandscapingBusiness",
+    "name": site.name,
+    "description": site.description,
+    "url": site.url,
+    "telephone": site.phone,
+    "areaServed": [
+      { "@type": "City", "name": "Raleigh", "containedInPlace": { "@type": "State", "name": "North Carolina" } },
+      ...site.locations.map(loc => ({ "@type": "City", "name": loc.name, "containedInPlace": { "@type": "State", "name": "North Carolina" } }))
+    ],
+    "openingHours": "Mo-Sa 07:00-18:00",
+    "priceRange": "$$",
+    "geo": { "@type": "GeoCoordinates", "latitude": site.geo.lat, "longitude": site.geo.lng },
+    "address": { "@type": "PostalAddress", "addressLocality": site.city, "addressRegion": site.state }
+  })} />
+</head>
+
+<body>
+  <!-- ── NAV ──────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-brand"><span>Raleigh</span> Landscaping</a>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#locations">Areas</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/">Contact</a></li>
+        <li><a href={`tel:${site.phoneTel}`} class="nav-cta">{site.phone}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <slot />
+  </main>
+
+  <!-- ── FOOTER ───────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">{site.name}</div>
+          <p class="footer-desc">{site.description}</p>
+          <a href={`tel:${site.phoneTel}`} class="btn btn-primary">{site.phone}</a>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul class="footer-links">
+            {site.services.map(s => (
+              <li><a href={`/${s.slug}/`}>{s.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4>Areas We Serve</h4>
+          <ul class="footer-links">
+            <li><a href="/#locations">Raleigh</a></li>
+            {site.locations.map(loc => (
+              <li><a href={`/${loc.slug}/`}>{loc.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4>Company</h4>
+          <ul class="footer-links">
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+        <p>{site.disclaimer}</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.querySelector('.nav-toggle');
+    const links = document.querySelector('.nav-links');
+    toggle?.addEventListener('click', () => links?.classList.toggle('active'));
+  </script>
+</body>
+</html>
