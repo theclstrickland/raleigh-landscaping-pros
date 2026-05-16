@@ -23,7 +23,7 @@ const otherLocations = site.locations.filter(l => l.slug !== slug);
       <h1>Landscaping Services in {name}, {site.state}</h1>
       <p class="lp-hero-sub">{description}</p>
       <div class="lp-hero-actions">
-        <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 Call {site.phone}</a>
+        <a href={`tel:${site.phoneTel}`} class="btn btn-primary">Call {site.phone}</a>
         <a href="/contact/" class="btn btn-secondary">Get Free Estimate</a>
       </div>
     </div>
@@ -34,9 +34,9 @@ const otherLocations = site.locations.filter(l => l.slug !== slug);
       <h2>Our Services in {name}</h2>
       <p class="section-intro">We bring the same professional-grade service to {name} that we deliver across the Raleigh metro.</p>
       <div class="lp-services-grid">
-        {site.services.map(s => (
+        {site.services.map((s, i) => (
           <a href={`/${s.slug}/`} class="lp-service-card">
-            <span class="lp-service-icon">{s.icon}</span>
+            <span class="lp-service-num">{String(i + 1).padStart(2, '0')}</span>
             <div>
               <h3>{s.name}</h3>
               <p>{s.short}</p>
@@ -63,7 +63,7 @@ const otherLocations = site.locations.filter(l => l.slug !== slug);
     <div class="container">
       <h2>Need Landscaping in {name}?</h2>
       <p>Call today for a free estimate. We'll come to your property, walk the site, and give you a detailed quote.</p>
-      <a href={`tel:${site.phoneTel}`} class="btn btn-primary">📞 {site.phone}</a>
+      <a href={`tel:${site.phoneTel}`} class="btn btn-primary">{site.phone}</a>
     </div>
   </section>
 </Base>
@@ -71,86 +71,124 @@ const otherLocations = site.locations.filter(l => l.slug !== slug);
 <style>
   .lp-hero {
     background: var(--bg-dark);
-    padding: 72px 0 80px;
+    padding: 80px 0 88px;
     position: relative;
+    overflow: hidden;
   }
   .lp-hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 60% 30%, rgba(45, 106, 48, 0.12), transparent 60%);
+    background: radial-gradient(ellipse at 60% 30%, rgba(61,107,61,0.1), transparent 55%);
+  }
+  .lp-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
   }
   .lp-hero .container { position: relative; }
   .lp-hero .section-label { color: var(--warm); }
   .lp-hero h1 {
-    font-size: clamp(32px, 4.5vw, 48px);
+    font-size: clamp(34px, 4.5vw, 50px);
     color: var(--white);
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     max-width: 700px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
   }
   .lp-hero-sub {
-    font-size: 17px;
-    color: rgba(255,255,255,0.7);
-    max-width: 600px;
-    margin-bottom: 28px;
-    line-height: 1.7;
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 580px;
+    margin-bottom: 32px;
+    line-height: 1.75;
+    font-weight: 300;
   }
-  .lp-hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .lp-hero .btn-secondary { border-color: rgba(255,255,255,0.3); color: var(--white); }
+  .lp-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .lp-hero .btn-secondary { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); }
 
-  .lp-services { padding: 80px 0; }
-  .lp-services h2 { font-size: clamp(28px, 4vw, 36px); margin-bottom: 8px; }
+  .lp-services { padding: 88px 0; }
+  .lp-services h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 8px; }
+  .section-intro {
+    color: var(--text-light);
+    font-size: 16px;
+    margin-bottom: 48px;
+    max-width: 520px;
+    font-weight: 300;
+  }
   .lp-services-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 18px;
   }
   .lp-service-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 24px;
+    padding: 28px;
     display: flex;
-    gap: 16px;
+    gap: 18px;
     align-items: start;
     text-decoration: none;
     color: inherit;
-    transition: all 0.2s;
+    transition: all 0.25s;
   }
-  .lp-service-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .lp-service-icon { font-size: 32px; flex-shrink: 0; }
+  .lp-service-card:hover { border-color: rgba(61,107,61,0.2); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .lp-service-num {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    color: rgba(61,107,61,0.15);
+    flex-shrink: 0;
+    line-height: 1;
+    padding-top: 2px;
+  }
   .lp-service-card h3 {
     font-family: var(--font-body);
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.1px;
   }
-  .lp-service-card p { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+  .lp-service-card p { font-size: 14px; color: var(--text-light); line-height: 1.65; font-weight: 300; }
 
-  .lp-areas { padding: 64px 0; background: var(--bg-alt); }
-  .lp-areas h2 { font-size: 28px; margin-bottom: 24px; }
-  .lp-areas-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+  .lp-areas { padding: 72px 0; background: var(--bg-alt); }
+  .lp-areas h2 { font-size: 30px; margin-bottom: 28px; }
+  .lp-areas-grid { display: flex; flex-wrap: wrap; gap: 10px; }
   .lp-area-pill {
     padding: 10px 20px;
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 100px;
+    border-radius: var(--radius);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
     text-decoration: none;
     color: var(--text);
     transition: all 0.2s;
+    letter-spacing: 0.2px;
   }
   .lp-area-pill:hover { border-color: var(--accent); color: var(--accent); }
   .lp-area-primary { background: var(--accent); color: var(--white); border-color: var(--accent); }
 
   .lp-cta {
     background: var(--bg-dark);
-    padding: 64px 0;
+    padding: 72px 0;
     text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .lp-cta h2 { color: var(--white); font-size: clamp(24px, 3.5vw, 36px); margin-bottom: 12px; }
-  .lp-cta p { color: rgba(255,255,255,0.7); margin-bottom: 24px; max-width: 520px; margin-left: auto; margin-right: auto; }
+  .lp-cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .lp-cta .container { position: relative; }
+  .lp-cta h2 { color: var(--white); font-size: clamp(26px, 3.5vw, 38px); margin-bottom: 12px; }
+  .lp-cta p { color: rgba(255,255,255,0.55); margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; font-weight: 300; }
 
   @media (max-width: 600px) {
     .lp-services-grid { grid-template-columns: 1fr; }

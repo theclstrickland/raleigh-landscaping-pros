@@ -21,25 +21,22 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
   <meta name="description" content={description} />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href={canonicalURL} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:site_name" content={site.name} />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
 
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- Schema: LocalBusiness -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "LandscapingBusiness",
@@ -59,7 +56,6 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
 </head>
 
 <body>
-  <!-- ── NAV ──────────────────────────────────────── -->
   <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-brand"><span>Raleigh</span> Landscaping</a>
@@ -67,8 +63,23 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links">
-        <li><a href="/#services">Services</a></li>
-        <li><a href="/#locations">Areas</a></li>
+        <li class="nav-dropdown">
+          <a href="/#services" class="nav-dropdown-trigger">Services <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown-menu">
+            {site.services.map(s => (
+              <a href={`/${s.slug}/`} class="nav-dropdown-item">{s.name}</a>
+            ))}
+          </div>
+        </li>
+        <li class="nav-dropdown">
+          <a href="/#locations" class="nav-dropdown-trigger">Areas <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <div class="nav-dropdown-menu">
+            <a href="/#locations" class="nav-dropdown-item">Raleigh</a>
+            {site.locations.map(loc => (
+              <a href={`/${loc.slug}/`} class="nav-dropdown-item">{loc.name}</a>
+            ))}
+          </div>
+        </li>
         <li><a href="/#pricing">Pricing</a></li>
         <li><a href="/#faq">FAQ</a></li>
         <li><a href="/about/">About</a></li>
@@ -82,7 +93,6 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
     <slot />
   </main>
 
-  <!-- ── FOOTER ───────────────────────────────────── -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -128,6 +138,17 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
     const toggle = document.querySelector('.nav-toggle');
     const links = document.querySelector('.nav-links');
     toggle?.addEventListener('click', () => links?.classList.toggle('active'));
+
+    // Mobile dropdown toggles
+    document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+      trigger.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          const parent = trigger.closest('.nav-dropdown');
+          parent?.classList.toggle('mobile-open');
+        }
+      });
+    });
   </script>
 </body>
 </html>
