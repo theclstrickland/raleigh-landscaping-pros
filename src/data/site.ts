@@ -9,8 +9,8 @@ export const site = {
   name: 'Raleigh Landscaping Pros',
   domain: 'raleighlandscapingpros.com',
   url: 'https://raleighlandscapingpros.com',
-  phone: '(919) 555-0147',
-  phoneTel: '+19195550147',
+  phone: '(919) 355-9932',
+  phoneTel: '+19193559932',
   tagline: 'Landscaping & Lawn Care Services',
   description:
     'Professional landscaping, lawn care, hardscaping, and outdoor design across the Raleigh, NC metro. Free estimates. Licensed & insured.',
