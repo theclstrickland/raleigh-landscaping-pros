@@ -122,10 +122,10 @@ h1, h2, h3, h4 {
   align-items: center;
 }
 .nav-logo {
-  height: 40px;
+  height: 44px;
   width: auto;
+  mix-blend-mode: multiply;
 }
-.nav-brand span { color: var(--accent); }
 .nav-links {
   display: flex;
   align-items: center;
@@ -317,10 +317,9 @@ h1, h2, h3, h4 {
   position: relative;
 }
 .footer-logo {
-  height: 50px;
+  height: 55px;
   width: auto;
   margin-bottom: 14px;
-  filter: brightness(0) invert(1);
 }
 .footer-desc {
   color: rgba(255,255,255,0.5);
