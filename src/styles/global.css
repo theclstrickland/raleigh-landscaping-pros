@@ -118,11 +118,12 @@ h1, h2, h3, h4 {
   height: 100%;
 }
 .nav-brand {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+}
+.nav-logo {
+  height: 40px;
+  width: auto;
 }
 .nav-brand span { color: var(--accent); }
 .nav-links {
@@ -315,12 +316,11 @@ h1, h2, h3, h4 {
   margin-bottom: 56px;
   position: relative;
 }
-.footer-brand {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--white);
+.footer-logo {
+  height: 50px;
+  width: auto;
   margin-bottom: 14px;
+  filter: brightness(0) invert(1);
 }
 .footer-desc {
   color: rgba(255,255,255,0.5);
