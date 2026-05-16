@@ -58,7 +58,7 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-brand"><img src="/logo.png" alt="Raleigh Landscaping Pros" class="nav-logo" /></a>
+      <a href="/" class="nav-brand"><img src="/logo.svg" alt="Raleigh Landscaping Pros" class="nav-logo" /></a>
       <button class="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -97,7 +97,7 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
     <div class="container">
       <div class="footer-grid">
         <div>
-          <img src="/logo.png" alt="Raleigh Landscaping Pros" class="footer-logo" />
+          <img src="/logo.svg" alt="Raleigh Landscaping Pros" class="footer-logo" />
           <p class="footer-desc">{site.description}</p>
           <a href={`tel:${site.phoneTel}`} class="btn btn-primary">{site.phone}</a>
         </div>
