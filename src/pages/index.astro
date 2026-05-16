@@ -9,31 +9,20 @@ import { site } from '../data/site';
   <section class="hero">
     <div class="container">
       <div class="hero-inner">
-        <div class="hero-content">
-          <p class="section-label">Raleigh's Trusted Landscaping Team</p>
-          <h1>Professional Landscaping<br/>for the Triangle</h1>
-          <p class="hero-sub">
-            From weekly lawn care to full landscape transformations — we keep Raleigh properties
-            looking their best. Licensed, insured, and locally owned.
-          </p>
-          <div class="hero-actions">
-            <a href={`tel:${site.phoneTel}`} class="btn btn-primary">Call {site.phone}</a>
-            <a href="/contact/" class="btn btn-secondary">Get Free Estimate</a>
-          </div>
-          <div class="hero-trust">
-            <div class="trust-item"><span class="trust-bar"></span>Licensed & Insured</div>
-            <div class="trust-item"><span class="trust-bar"></span>Free Estimates</div>
-            <div class="trust-item"><span class="trust-bar"></span>Locally Owned</div>
-          </div>
+        <p class="section-label">Raleigh's Trusted Landscaping Team</p>
+        <h1>Professional Landscaping<br/>for the Triangle</h1>
+        <p class="hero-sub">
+          From weekly lawn care to full landscape transformations — we keep Raleigh properties
+          looking their best. Licensed, insured, and locally owned.
+        </p>
+        <div class="hero-actions">
+          <a href={`tel:${site.phoneTel}`} class="btn btn-primary">Call {site.phone}</a>
+          <a href="/contact/" class="btn btn-secondary">Get Free Estimate</a>
         </div>
-        <div class="hero-visual">
-          <div class="hero-card">
-            <div class="hero-card-line"></div>
-            <div class="hero-card-text">
-              <strong>Serving the Triangle</strong>
-              <span>Raleigh &middot; Cary &middot; Apex &middot; Wake Forest & more</span>
-            </div>
-          </div>
+        <div class="hero-trust">
+          <div class="trust-item"><span class="trust-bar"></span>Licensed & Insured</div>
+          <div class="trust-item"><span class="trust-bar"></span>Free Estimates</div>
+          <div class="trust-item"><span class="trust-bar"></span>Locally Owned</div>
         </div>
       </div>
     </div>
@@ -185,20 +174,20 @@ import { site } from '../data/site';
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(20,30,18,0.88) 0%, rgba(20,30,18,0.75) 45%, rgba(20,30,18,0.45) 100%);
+    background: rgba(20,30,18,0.65);
     pointer-events: none;
   }
   .hero-inner {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 64px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    text-align: center;
     position: relative;
     z-index: 1;
   }
   .hero .section-label { color: var(--warm); }
   .hero h1 {
-    font-size: clamp(38px, 5.5vw, 60px);
+    font-size: clamp(38px, 5.5vw, 64px);
     color: var(--white);
     margin-bottom: 22px;
     line-height: 1.08;
@@ -207,14 +196,14 @@ import { site } from '../data/site';
   }
   .hero-sub {
     font-size: 17px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.65);
     margin-bottom: 36px;
-    max-width: 500px;
+    max-width: 540px;
     line-height: 1.75;
     font-weight: 300;
   }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; }
-  .hero-trust { display: flex; gap: 28px; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 40px; justify-content: center; }
+  .hero-trust { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
   .trust-item {
     font-size: 13px;
     color: rgba(255,255,255,0.5);
@@ -229,36 +218,6 @@ import { site } from '../data/site';
     width: 16px;
     height: 1.5px;
     background: var(--warm);
-  }
-  .hero-visual { display: flex; justify-content: center; }
-  .hero-card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-  .hero-card-line {
-    width: 3px;
-    height: 48px;
-    background: linear-gradient(to bottom, var(--accent), var(--warm));
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .hero-card-text strong {
-    display: block;
-    color: var(--white);
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .hero-card-text span {
-    color: rgba(255,255,255,0.4);
-    font-size: 13px;
-    letter-spacing: 0.3px;
   }
 
   /* ── Services ── */
@@ -512,8 +471,6 @@ import { site } from '../data/site';
 
   /* ── Responsive ── */
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-    .hero-visual { display: none; }
     .services-grid { grid-template-columns: 1fr 1fr; }
     .why-grid { grid-template-columns: 1fr 1fr; }
     .locations-grid { grid-template-columns: 1fr 1fr; }
