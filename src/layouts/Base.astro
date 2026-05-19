@@ -53,6 +53,13 @@ const canonicalURL = canonical || new URL(Astro.url.pathname, site.url).toString
     "geo": { "@type": "GeoCoordinates", "latitude": site.geo.lat, "longitude": site.geo.lng },
     "address": { "@type": "PostalAddress", "addressLocality": site.city, "addressRegion": site.state }
   })} />
+
+  <!-- Privacy-friendly analytics by Plausible -->
+  <script async src="https://plausible.io/js/pa-fOaiUWAi59-ZQvoe-1vAe.js"></script>
+  <script is:inline>
+    window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+    plausible.init()
+  </script>
 </head>
 
 <body>
